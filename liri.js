@@ -1,19 +1,13 @@
-require(".env").config();
+require("dotenv").config();
 
 // Variables
 
 var keys = require("./keys.js");
-
 var Spotify = require("node-spotify-api");
-
 var spotify = new Spotify(keys.spotify);
-
 var axios = require("axios");
-
 var moment = require("moment");
-
 var fs = require("fs");
-
 
 var action = process.argv[2];
 var value = process.argv[3];
@@ -34,18 +28,17 @@ switch (action) {
     break;
 };
 
-//* Concert
+
+//* Concert - Artist/Band Name
 function concertThis() {
-  axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
+  axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
     .then(function (response) {
       for (var i = 0; i < response.data.length; i++) {
-
-        var dateTime = response.data[i].dateTime;
-        var dateArr = dateTime.split(",");
-
+        var datetime = response.data[i].datetime;
+        var dateArr = datetime.split("T");
         var concertResults =
-          console.log("------------------------------")
-        "\nVenue Name: " + response.data[i].venue.name +
+          "--------------------------------------------------------------------" +
+          "\nVenue Name: " + response.data[i].venue.name +
           "\nVenue Location: " + response.data[i].venue.city +
           "\nDate of the Concert: " + moment(dateArr[0], "MM-DD-YYYY");
         console.log(concertResults);
@@ -54,10 +47,10 @@ function concertThis() {
     .catch(function (err) {
       console.log(err);
     });
-
 }
 
-//* Spotify
+
+//* Spotify - Song Name
 function spotifySong(value) {
   if (!value) {
     value = "The Sign";
@@ -70,12 +63,11 @@ function spotifySong(value) {
     .then(function (response) {
       for (var i = 0; i < 5; i++) {
         var spotifyResults =
-          console.log("------------------------------------")
-        "\nArtist: " + response.tracks.items[i].artists[0].name +
+          "--------------------------------------------------------------------" +
+          "\nArtist: " + response.tracks.items[i].artists[0].name +
           "\nSong Name: " + response.tracks.items[i].name +
           "\nAlbum Name: " + response.tracks.items[i].album.name +
           "\nPreview Link: " + response.tracks.items[i].preview_url;
-
         console.log(spotifyResults);
       }
     })
@@ -84,40 +76,39 @@ function spotifySong(value) {
     });
 }
 
-//* Movie
+
+//* Movie - Movie Name
 function movieThis(value) {
   if (!value) {
-    value = "mr nobody";
+    value = "Mr Nobody";
   }
   axios.get("https://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy")
     .then(function (response) {
       var movieResults =
-        console.log("------------------------------");
-      "\nMovie Title: " + response.data.title +
-        "\nYear of Release: " + response.data.year +
+        "--------------------------------------------------------------------" +
+        "\nMovie Title: " + response.data.Title +
+        "\nYear of Release: " + response.data.Year +
         "\nIMDB Rating: " + response.data.imdbRating +
-        "\nRotten Tomatoes Rating: " + response.data.Ratings[1].value +
+        "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
         "\nCountry Produced: " + response.data.Country +
         "\nLanguage: " + response.data.Language +
         "\nPlot: " + response.data.Plot +
-        "\nActors/Actresses: " + response.data.Actor +
-        console.log(movieResults);
+        "\nActors/Actresses: " + response.data.Actors;
+      console.log(movieResults);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
+
 //* Do what it says
 function doThis(value) {
-
   fs.readFile("random.txt", "utf8", function (error, data) {
     if (error) {
       return console.log(error);
     }
-    var dateArr = data.split(",");
-    spotifySong(dateArr[0], dataArr[1]);
+    var dataArr = data.split(",");
+    spotifySong(dataArr[0], dataArr[1]);
   })
 }
-
-console.log(JSON.stringify(data, null, 2));
