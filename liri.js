@@ -42,7 +42,7 @@ function concertThis() {
           "--------------------------------------------------------------------" +
           "\nVenue Name: " + response.data[i].venue.name +
           "\nVenue Location: " + response.data[i].venue.city +
-          "\nDate of the Event: " + moment(dateArr[0], "MM-DD-YYYY");
+          "\nDate of the Event: " + response.data[i].datetime
         console.log(concertResults);
       }
     })
@@ -87,7 +87,7 @@ function movieThis(value) {
   axios.get("https://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy")
     .then(function (response) {
       var movieResults =
-        "--------------------------------------------------------------------" +
+        "----------------------------------------------------------------------" +
         "\nMovie Title: " + response.data.Title +
         "\nYear of Release: " + response.data.Year +
         "\nIMDB Rating: " + response.data.imdbRating +
