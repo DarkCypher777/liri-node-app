@@ -87,7 +87,7 @@ function movieThis(value) {
   axios.get("https://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy")
     .then(function (response) {
       var movieResults =
-        "----------------------------------------------------------------------" +
+        "---------------------------------------------------------------------" +
         "\nMovie Title: " + response.data.Title +
         "\nYear of Release: " + response.data.Year +
         "\nIMDB Rating: " + response.data.imdbRating +

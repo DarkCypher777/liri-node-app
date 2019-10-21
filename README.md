@@ -1,4 +1,4 @@
-# Project liri node app
+# Project LIRI Node App
 
 # Made By
 <b>Ben Diamond</b>
@@ -25,9 +25,12 @@ Navigate to the folder that contains the liri.js file.
 
 Depending on the command you run, the output will vary.
 
-Example 1: Run the concert-this command
+Example : Run the concert-this command
 
- node liri.js concert-this <name of artist or band>
+node liri.js concert-this "name of artist or band"
+
+![Concert](concert.PNG)
+
 
 
 # Link
